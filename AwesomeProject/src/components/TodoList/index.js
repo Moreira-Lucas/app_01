@@ -16,7 +16,7 @@ export const TodoList = () =>{
         return(
             <View >
                 
-   <Text>My first app</Text>
+   <Text>Mrdeii</Text>
              
             
    
