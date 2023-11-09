@@ -1,20 +1,29 @@
-import React, {useState} from 'react';
-import { Text, View, FlatList, Button } from 'react-native';
+import React, { useState } from 'react';
+import { TextInput, Text, View, FlatList, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+//import { FontAwesome } from '@fortawesome/fontawesome-free';
 
-function ListScreen() {
-  const [data, setData] = React.useState([]);
+const ListScreen = () => {
+ const [data, setData] = useState([]);
 
-  const addItem = () => {
+
+ const [value, setValue] = useState("");
+
+
+  const addItem = (text) => {
     const newItem = {
       id: Math.random().toString(36).substring(7),
-      text: 'Novo item',
+      text: text,
     };
 
     setData([...data, newItem]);
   };
 
+
+
+
+  
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <FlatList
@@ -25,67 +34,69 @@ function ListScreen() {
           </View>
         )}
       />
+      <TextInput
+        style={{ marginBottom: 10 }}
+        placeholder="Insira um item"
+        onChange={(event) => {
+          setValue(event.nativeEvent.text);
+        }}
+      />
+
       <Button
         title="Adicionar item"
-        onPress={addItem}
+        onPress={()=>{addItem(value)}}
       />
     </View>
   );
-}
+};
 
-
-
-const Tab = createBottomTabNavigator();
-
-
-function HomeScreen() {
+const HomeScreen = () => {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Home!</Text>
     </View>
   );
-}
+};
 
-function SettingsScreen() {
+
+const SettingsScreen = () => {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Settings!</Text>
     </View>
   );
-}
+};
 
+const Tab = createBottomTabNavigator();
 
-
-
-function MyTabs() {
+const MyTabs = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="List" component={ListScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
+      <Tab.Screen
+        name="List"
+        component={ListScreen}
+        //icon={<FontAwesome name="list" />}
+      />
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        //icon={<FontAwesome name="house" />}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={SettingsScreen}
+       // icon={<FontAwesome name="gear" />}
+      />
     </Tab.Navigator>
   );
-}
+};
 
-
-function App() {
-  const [data, setData] = useState([]);
-
-  const addItem = () => {
-    const newItem = {
-      id: Math.random().toString(36).substring(7),
-      text: 'Novo item',
-    };
-
-    setData([...data, newItem]);
-  };
-
+const App = () => {
   return (
     <NavigationContainer>
       <MyTabs />
     </NavigationContainer>
   );
-}
-
+};
 
 export default App;
