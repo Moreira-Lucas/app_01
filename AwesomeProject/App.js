@@ -3,6 +3,8 @@ import { TextInput, Text, View, FlatList, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 //import { FontAwesome } from '@fortawesome/fontawesome-free';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 
 const ListScreen = () => {
  const [data, setData] = useState([]);
@@ -21,15 +23,19 @@ const ListScreen = () => {
   };
 
 
-
-
   
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <FlatList
         data={data}
         renderItem={({ item }) => (
-          <View style={{ padding: 10 }}>
+          <View style={{width: 300,
+            height: 50,
+            margin:5,
+            padding:15,
+            borderRadius: 10,
+            backgroundColor: '#222831',
+            boxShadow: '0 10px 10px rgba(0, 0, 0, 0.1)',}}>
             <Text>{item.text}</Text>
           </View>
         )}
@@ -45,6 +51,7 @@ const ListScreen = () => {
       <Button
         title="Adicionar item"
         onPress={()=>{addItem(value)}}
+        style={{margin:10}}
       />
     </View>
   );
@@ -71,10 +78,19 @@ const Tab = createBottomTabNavigator();
 
 const MyTabs = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen
+    <Tab.Navigator   >
+      <Tab.Screen 
+        
         name="List"
+        
         component={ListScreen}
+        
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="home" />
+          ),
+        }}
         //icon={<FontAwesome name="list" />}
       />
       <Tab.Screen
