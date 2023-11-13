@@ -1,5 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import React, { useState,useRef } from 'react';
+import React, { useState } from 'react';
 import {Modal,TouchableOpacity, FlatList, Text, View, TextInput, Button } from 'react-native';
 //import Icon from 'react-native-vector-icons';
 //import styles from '../styles/ListStyles';
@@ -12,25 +12,22 @@ export const ListScreen = () => {
 
   const [value, setValue] = useState('1');
   const [value2, setValue2] = useState('2');
-  const modalRef = useRef(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   /*const deleteItem = (id) => {
     setData(data.filter((item) => item.id !== id));
   };*/
-  const editItem = (id) =>{
-    const itemEditing = data.find((item) => item.id == id);
-    console.log(itemEditing);
-    modalRef.current.open();
-  };
 
   const closeModal = () => {
     // Desativa o modal
-    modalRef.current.close();
+    //setModalVisible(false);
   };
 
-  
-
-
+  const editItem = () =>{
+    //const itemEditing = data.find((item) => item.id == id);
+    //console.log(itemEditing);
+    //setModalVisible(true);
+  };
   let newItem;
   const addItem = (text, price) => {
     
@@ -56,9 +53,7 @@ export const ListScreen = () => {
         data={data}
         //ref={listRef}
         renderItem={({ item }) => (
-          <View
-           // style={styles.container}
-          >
+          <View>
             <Text style={{ flex: 1, alignItems: 'flex-start' }}>{item.text}</Text>
             <Text style={{ flex: 1, alignItems: 'flex-end' }}>{item.price}</Text>
             <TouchableOpacity
@@ -68,7 +63,7 @@ export const ListScreen = () => {
             borderRadius:10}}
       onPress={() => {
         //deleteItem(item.id);
-        editItem(item.id);
+        //editItem();
       }}
     >
       
@@ -80,27 +75,28 @@ export const ListScreen = () => {
 
       />
       <Modal
-        ref={modalRef}
+        //ref={modalRef}
         animationType="fade"
         transparent={true}
         onRequestClose={closeModal}
+        visible={false}
       >
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <TextInput
             style={{ marginBottom: 10 }}
             placeholder="Texto"
             //value={text}
-            onChangeText=''//setText}
+            //onChange={}//setText}
           />
           <TextInput
             style={{ marginBottom: 10 }}
             placeholder="Preço"
             //value={price}
-            onChangeText=''//setPrice}
+            //setPrice}
           />
           <Button
-            title="Salvar"
-            onPress=''//{onSave}
+            title="fechar"
+            onPress={editItem()}//{onSave}
             style={{ margin: 10 }}
           />
         </View>
