@@ -48,19 +48,35 @@ export const ListScreen = () => {
 
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor:'gray',  }}>
       <FlatList
         data={data}
         //ref={listRef}
+        style={{width:'90%'}}
+       
         renderItem={({ item }) => (
-          <View>
-            <Text style={{ flex: 1, alignItems: 'flex-start' }}>{item.text}</Text>
-            <Text style={{ flex: 1, alignItems: 'flex-end' }}>{item.price}</Text>
+          <View  style={{
+            flexDirection: 'row',
+      //width: 300,
+      alignItems:'flex-end',
+      height: 100,
+      margin: 5,
+      padding: 15,
+      borderRadius: 10,
+      backgroundColor: '#FFF',
+      boxShadow: '0 10px 10px rgba(0, 0, 0, 0.1)',
+          }}>
+            <TextInput value={item.text} styles={{  alignItems: 'flex-start' }} editable={true} />
+            <TextInput value={item.price} styles={{ alignItems:'flex-end' }} editable={true} />
+            
             <TouchableOpacity
-            style={{alignItems: 'center',
+            style={{
             backgroundColor: 'red',
             padding: 10,
-            borderRadius:10}}
+            borderRadius:10,
+            margin:10,
+            alignItems:'center'
+          }}
       onPress={() => {
         //deleteItem(item.id);
         //editItem();
@@ -74,33 +90,7 @@ export const ListScreen = () => {
 
 
       />
-      <Modal
-        //ref={modalRef}
-        animationType="fade"
-        transparent={true}
-        onRequestClose={closeModal}
-        visible={false}
-      >
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <TextInput
-            style={{ marginBottom: 10 }}
-            placeholder="Texto"
-            //value={text}
-            //onChange={}//setText}
-          />
-          <TextInput
-            style={{ marginBottom: 10 }}
-            placeholder="Preço"
-            //value={price}
-            //setPrice}
-          />
-          <Button
-            title="fechar"
-            onPress={editItem()}//{onSave}
-            style={{ margin: 10 }}
-          />
-        </View>
-      </Modal>
+     
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <TextInput
           style={{ marginBottom: 10 }}
