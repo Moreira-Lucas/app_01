@@ -3,8 +3,16 @@ import React, { useState } from 'react';
 import {Modal,TouchableOpacity, FlatList, Text, View, TextInput, Button } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NumberFormat } from 'react-intl';
+import CurrencyInput from 'react-native-currency-input';
 //import Icon from 'react-native-vector-icons';
 //import styles from '../styles/ListStyles';
+
+
+
+
+
+
+
 
 export const ListScreen = () => {
 
@@ -13,7 +21,7 @@ export const ListScreen = () => {
   const [data, setData] = useState([]);
 
   const [value, setValue] = useState('1');
-  const [value2, setValue2] = useState(0);
+  const [value2, setValue2] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
 
   const deleteItem = (id) => {
@@ -21,7 +29,7 @@ export const ListScreen = () => {
   };
   const itemSum = data.reduce((total, item) => {
     
-    return parseFloat(total) + parseFloat(item.price);; 
+    return eval(total + item.price);
   }, 0);
   
    // 102
@@ -40,7 +48,7 @@ export const ListScreen = () => {
       newItem = {
       id: Math.random().toString(36).substring(7),
       text:text,
-      price:price,
+      price:parseFloat(price),
       
     };
 
@@ -54,6 +62,19 @@ export const ListScreen = () => {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'gray' }}>
+     <CurrencyInput
+      value={itemSum}
+      onChangeValue={setValue}
+      prefix="R$"
+      delimiter="."
+      separator=","
+      precision={2}
+      minValue={0}
+      showPositiveSign
+      onChangeText={(formattedValue) => {
+        console.log(formattedValue); // R$ +2.310,46
+      }}
+    />
       <FlatList
         data={data}
         style={{ width: '90%' }}
@@ -76,7 +97,7 @@ export const ListScreen = () => {
               editable={true}
             />
             <TextInput
-              value={item.price}
+              value={item.price.toString()}
               style={{
                 alignItems: 'flex-end',
                 marginLeft: '60%',
@@ -104,12 +125,7 @@ export const ListScreen = () => {
           </View>
         )}
         ListFooterComponent={() => (
-          <NumberFormat
-            value={itemSum}
-            style="currency"
-            currency="BRL"
-            minimumFractionDigits={2}
-          />
+         <></> 
         )}
       />
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
