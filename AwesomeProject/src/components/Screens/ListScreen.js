@@ -1,6 +1,8 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+//import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import {Modal,TouchableOpacity, FlatList, Text, View, TextInput, Button } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { NumberFormat } from 'react-intl';
 //import Icon from 'react-native-vector-icons';
 //import styles from '../styles/ListStyles';
 
@@ -11,17 +13,19 @@ export const ListScreen = () => {
   const [data, setData] = useState([]);
 
   const [value, setValue] = useState('1');
-  const [value2, setValue2] = useState('2');
+  const [value2, setValue2] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
 
-  /*const deleteItem = (id) => {
+  const deleteItem = (id) => {
     setData(data.filter((item) => item.id !== id));
-  };*/
-
-  const closeModal = () => {
-    // Desativa o modal
-    //setModalVisible(false);
   };
+  const itemSum = data.reduce((total, item) => {
+    
+    return parseFloat(total) + parseFloat(item.price);; 
+  }, 0);
+  
+   // 102
+  
 
   const editItem = () =>{
     //const itemEditing = data.find((item) => item.id == id);
@@ -30,6 +34,7 @@ export const ListScreen = () => {
   };
   let newItem;
   const addItem = (text, price) => {
+    
     
     //console.log(text,price);
       newItem = {
@@ -48,49 +53,65 @@ export const ListScreen = () => {
 
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor:'gray',  }}>
+    <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'gray' }}>
       <FlatList
         data={data}
-        //ref={listRef}
-        style={{width:'90%'}}
-       
+        style={{ width: '90%' }}
         renderItem={({ item }) => (
-          <View  style={{
-            flexDirection: 'row',
-      //width: 300,
-      alignItems:'flex-end',
-      height: 100,
-      margin: 5,
-      padding: 15,
-      borderRadius: 10,
-      backgroundColor: '#FFF',
-      boxShadow: '0 10px 10px rgba(0, 0, 0, 0.1)',
-          }}>
-            <TextInput value={item.text} styles={{  alignItems: 'flex-start' }} editable={true} />
-            <TextInput value={item.price} styles={{ alignItems:'flex-end' }} editable={true} />
-            
-            <TouchableOpacity
+          <View
             style={{
-            backgroundColor: 'red',
-            padding: 10,
-            borderRadius:10,
-            margin:10,
-            alignItems:'center'
-          }}
-      onPress={() => {
-        //deleteItem(item.id);
-        //editItem();
-      }}
-    >
-      
-    </TouchableOpacity>
-           
+              flexDirection: 'row',
+              width: 350,
+              height: 70,
+              margin: 5,
+              padding: 10,
+              borderRadius: 10,
+              backgroundColor: '#FFF',
+              boxShadow: '0 10px 10px rgba(0, 0, 0, 0.1)',
+            }}
+          >
+            <TextInput
+              value={item.text}
+              style={{ alignItems: 'flex-start', borderColor: '#ccc', borderWidth: 1 }}
+              editable={true}
+            />
+            <TextInput
+              value={item.price}
+              style={{
+                alignItems: 'flex-end',
+                marginLeft: '60%',
+                padding: 5,
+                borderColor: '#ccc',
+                borderWidth: 1,
+              }}
+              editable={true}
+              keyboardType="numeric"
+            />
+            <TouchableOpacity
+              style={{
+                padding: 10,
+                borderRadius: 10,
+                marginLeft: '15%',
+              }}
+              onPress={() => {
+                // deleteItem(item.id);
+                // editItem();
+                console.log({ itemSum });
+              }}
+            >
+              <MaterialCommunityIcons name="menu" size={24} color="red" style={{ backgroundColor: 'white' }} />
+            </TouchableOpacity>
           </View>
         )}
-
-
+        ListFooterComponent={() => (
+          <NumberFormat
+            value={itemSum}
+            style="currency"
+            currency="BRL"
+            minimumFractionDigits={2}
+          />
+        )}
       />
-     
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <TextInput
           style={{ marginBottom: 10 }}
@@ -102,6 +123,7 @@ export const ListScreen = () => {
         <TextInput
           style={{ marginBottom: 10 }}
           placeholder="Preço"
+          keyboardType="numeric"
           onChange={(event) => {
             setValue2(event.nativeEvent.text);
           }}
@@ -117,4 +139,6 @@ export const ListScreen = () => {
       />
     </View>
   );
+  
+  
 };
