@@ -1,9 +1,10 @@
 //import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React, {useRef, useState } from 'react';
-import {Modal,TouchableOpacity, FlatList, Text, View, TextInput, Button } from 'react-native';
+import {TouchableOpacity, FlatList, Text, View, TextInput, Button } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NumberFormat } from 'react-intl';
 import CurrencyInput from 'react-native-currency-input';
+import Modal from "react-native-modal";
 //import { Modalize } from 'react-native-modalize';
 
 //import Icon from 'react-native-vector-icons';
@@ -16,11 +17,12 @@ export const ListScreen = () => {
   const [value, setValue] = useState('1');
   const [value2, setValue2] = useState('');
   const [edit, setEdit] = useState(false)
-  const modalizeRef = useRef(null);
+  const [modalVisible, setModalVisible] = useState();
+  //const modalizeRef = useRef(null);
 
-  const onOpen = () => {
+  /*const onOpen = () => {
     modalizeRef.current?.open();
-  };
+  };*/
 
 
   const deleteItem = (id) => {
@@ -127,16 +129,35 @@ export const ListScreen = () => {
         )}
       
       />
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+     
+      
+      <TouchableOpacity
+        onPress={() => {
+          // Chame o método addItem() aqui
+          //addItem(value, value2);
+          setModalVisible(!modalVisible);
+        }}
+        style={{ margin: 10, with:20 }}
+      >
+        <MaterialCommunityIcons name="plus-box" size={50} color="red"  />
+           
+      </TouchableOpacity>
+      <Modal
+       isVisible={modalVisible}
+
+        //style={{flex:1, padding:15}}
+        >
+          <View style={{backgroundColor:"#fff",  borderRadius:10, justifyContent:'center',alignItems:'center',}}>
+          <View style={{  justifyContent: 'center', alignItems: 'center' }}>
         <TextInput
-          style={{ marginBottom: 10 }}
+          style={{ marginBottom: 10, borderWidth:1,borderColor:'#000' }}
           placeholder="Item"
           onChange={(event) => {
             setValue(event.nativeEvent.text);
           }}
         />
         <TextInput
-          style={{ marginBottom: 10 }}
+          style={{ marginBottom: 10, borderRadius:10, borderColor:"#000",borderWidth:1 }}
           placeholder="Preço"
           keyboardType="numeric"
           onChange={(event) => {
@@ -144,23 +165,21 @@ export const ListScreen = () => {
           }}
         />
       </View>
-      
-      <TouchableOpacity
-        onPress={() => {
-          // Chame o método addItem() aqui
-          //addItem(value, value2);
-          onOpen();
-        }}
-        style={{ margin: 10, with:20 }}
-      >
-        <MaterialCommunityIcons name="plus-box" size={50} color="red" style={{  }} />
            
-      </TouchableOpacity>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={true}
-        ></Modal>
+
+            <TouchableOpacity>
+            <MaterialCommunityIcons name="plus-box" size={50} color="red"/>
+
+            </TouchableOpacity>  
+            <TouchableOpacity
+             style={{alignItems:'flex-start'}}
+             onPress={()=>{
+              setModalVisible(!modalVisible)
+            }}><Text>X</Text></TouchableOpacity>
+
+
+          </View>
+        </Modal>
     </View>
   );
   
