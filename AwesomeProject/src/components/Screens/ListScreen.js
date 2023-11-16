@@ -62,9 +62,9 @@ export const ListScreen = () => {
 
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'gray',padding:2 }}>
+    <View style={{ flex: 1, alignItems: 'center',padding:2,backgroundColor:'#fff' }}>
      <CurrencyInput
-      style={{ fontSize:30,height:'10%', width:'70%', textAlign:'center', borderRadius:5}}
+      style={{ fontSize:30,fontWeight:'700',height:'10%', width:'70%', textAlign:'center', borderRadius:5}}
       value={itemSum}
       onChangeValue={setValue}
       prefix="R$ "
@@ -72,7 +72,7 @@ export const ListScreen = () => {
       separator=","
       precision={2}
       minValue={0}
-      showPositiveSign
+      //showPositiveSign
       onChangeText={(formattedValue) => {
         console.log(formattedValue); // R$ +2.310,46
       }}
@@ -83,38 +83,44 @@ export const ListScreen = () => {
         renderItem={({ item }) => (
           <View
             style={{
-              flexDirection: 'row',
+              //flexDirection: 'row',
+              flexDirection:'row',
               width: 350,
               height: 70,
               margin: 5,
               padding: 10,
+              //borderWidth:1,
               borderRadius: 10,
               backgroundColor: '#FFF',
               boxShadow: '0 10px 10px rgba(0, 0, 0, 0.1)',
             }}
           >
+            <View style={{ flexDirection:'column', width:'90%'}}>
             <TextInput
               value={item.text}
-              style={{ alignItems: 'flex-start', borderColor: '#ccc', borderWidth: 1 }}
+              style={{ fontSize:16, fontWeight:'700',color:'#000' }}
               editable={edit}
             />
             <TextInput
               value={item.price.toString()}
               style={{
-                alignItems: 'flex-end',
-                marginLeft: '60%',
                 padding: 5,
-                borderColor: '#ccc',
-                borderWidth: 1,
+                color:'red',
+               // borderColor: '#ccc',
+                //borderWidth: 1,
               }}
               editable={edit}
               keyboardType="numeric"
             />
+            </View>
+            
             <TouchableOpacity
               style={{
-                padding: 10,
+                
+                //padding: 10,
                 borderRadius: 10,
-                marginLeft: '15%',
+                //marginLeft: '15%',
+                
               }}
               onPress={() => {
                 // deleteItem(item.id);
@@ -148,16 +154,16 @@ export const ListScreen = () => {
         //style={{flex:1, padding:15}}
         >
           <View style={{backgroundColor:"#fff",  borderRadius:10, justifyContent:'center',alignItems:'center',}}>
-          <View style={{  justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{  justifyContent: 'center', alignItems: 'center', width:'100%', borderColor:'red',  }}>
         <TextInput
-          style={{ marginBottom: 10, borderWidth:1,borderColor:'#000' }}
+          style={{ padding:5,margin:10, borderWidth:1,borderColor:'#000',width:'60%',borderRadius:5 }}
           placeholder="Item"
           onChange={(event) => {
             setValue(event.nativeEvent.text);
           }}
         />
         <TextInput
-          style={{ marginBottom: 10, borderRadius:10, borderColor:"#000",borderWidth:1 }}
+          style={{padding:5, marginBottom: 10, borderRadius:5, borderColor:"#000",borderWidth:1,width:'60%' }}
           placeholder="Preço"
           keyboardType="numeric"
           onChange={(event) => {
@@ -167,7 +173,10 @@ export const ListScreen = () => {
       </View>
            
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>{
+              addItem(value, value2);
+              setModalVisible(false);
+            }}>
             <MaterialCommunityIcons name="plus-box" size={50} color="red"/>
 
             </TouchableOpacity>  
