@@ -1,28 +1,27 @@
 //import { MaterialCommunityIcons } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import React, {useRef, useState } from 'react';
 import {Modal,TouchableOpacity, FlatList, Text, View, TextInput, Button } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NumberFormat } from 'react-intl';
 import CurrencyInput from 'react-native-currency-input';
+//import { Modalize } from 'react-native-modalize';
+
 //import Icon from 'react-native-vector-icons';
 //import styles from '../styles/ListStyles';
 
-
-
-
-
-
-
-
 export const ListScreen = () => {
-
-
 
   const [data, setData] = useState([]);
 
   const [value, setValue] = useState('1');
   const [value2, setValue2] = useState('');
-  const [modalVisible, setModalVisible] = useState(false);
+  const [edit, setEdit] = useState(false)
+  const modalizeRef = useRef(null);
+
+  const onOpen = () => {
+    modalizeRef.current?.open();
+  };
+
 
   const deleteItem = (id) => {
     setData(data.filter((item) => item.id !== id));
@@ -61,11 +60,12 @@ export const ListScreen = () => {
 
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'gray' }}>
+    <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'gray',padding:2 }}>
      <CurrencyInput
+      style={{ fontSize:30,height:'10%', width:'70%', textAlign:'center', borderRadius:5}}
       value={itemSum}
       onChangeValue={setValue}
-      prefix="R$"
+      prefix="R$ "
       delimiter="."
       separator=","
       precision={2}
@@ -94,7 +94,7 @@ export const ListScreen = () => {
             <TextInput
               value={item.text}
               style={{ alignItems: 'flex-start', borderColor: '#ccc', borderWidth: 1 }}
-              editable={true}
+              editable={edit}
             />
             <TextInput
               value={item.price.toString()}
@@ -105,7 +105,7 @@ export const ListScreen = () => {
                 borderColor: '#ccc',
                 borderWidth: 1,
               }}
-              editable={true}
+              editable={edit}
               keyboardType="numeric"
             />
             <TouchableOpacity
@@ -117,16 +117,15 @@ export const ListScreen = () => {
               onPress={() => {
                 // deleteItem(item.id);
                 // editItem();
+                setEdit(!edit);
                 console.log({ itemSum });
               }}
             >
-              <MaterialCommunityIcons name="menu" size={24} color="red" style={{ backgroundColor: 'white' }} />
+              <MaterialCommunityIcons name="pencil-plus" size={24} color="red" style={{ backgroundColor: 'white' }} />
             </TouchableOpacity>
           </View>
         )}
-        ListFooterComponent={() => (
-         <></> 
-        )}
+      
       />
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <TextInput
@@ -145,14 +144,23 @@ export const ListScreen = () => {
           }}
         />
       </View>
-      <Button
-        title="Adicionar item"
+      
+      <TouchableOpacity
         onPress={() => {
           // Chame o método addItem() aqui
-          addItem(value, value2);
+          //addItem(value, value2);
+          onOpen();
         }}
-        style={{ margin: 10 }}
-      />
+        style={{ margin: 10, with:20 }}
+      >
+        <MaterialCommunityIcons name="plus-box" size={50} color="red" style={{  }} />
+           
+      </TouchableOpacity>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={true}
+        ></Modal>
     </View>
   );
   
