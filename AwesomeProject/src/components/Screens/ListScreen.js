@@ -5,6 +5,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NumberFormat } from 'react-intl';
 import CurrencyInput from 'react-native-currency-input';
 import Modal from "react-native-modal";
+import {styles} from '../styles/ListStyles';
+import {LinearGradient} from 'expo-linear-gradient';
+
 //import { Modalize } from 'react-native-modalize';
 
 //import Icon from 'react-native-vector-icons';
@@ -12,8 +15,14 @@ import Modal from "react-native-modal";
 
 export const ListScreen = () => {
 
-  const [data, setData] = useState([]);
-
+  const [data, setData] = useState([
+    {"id": "5nfiwp", "price": '4,98', "text": "Pão de forma"}, 
+    {"id": "0gtsy", "price": '3,29', "text": "Leite"},
+    {"id": "0gtsy", "price": '29,98', "text": "Queijo"},
+    {"id": "0gtsy", "price": '14,98', "text": "café"},
+    {"id": "0gtsy", "price": '100,95', "text": "Legumes"},
+    {"id": "0gtsy", "price": '4,98', "text": "teste"},
+  ]);
   const [value, setValue] = useState('1');
   const [value2, setValue2] = useState('');
   const [edit, setEdit] = useState(false)
@@ -23,7 +32,6 @@ export const ListScreen = () => {
   /*const onOpen = () => {
     modalizeRef.current?.open();
   };*/
-
 
   const deleteItem = (id) => {
     setData(data.filter((item) => item.id !== id));
@@ -62,9 +70,13 @@ export const ListScreen = () => {
 
 
   return (
-    <View style={{ flex: 1, alignItems: 'center',padding:2,backgroundColor:'#fff' }}>
-     <CurrencyInput
-      style={{ fontSize:30,fontWeight:'700',height:'10%', width:'70%', textAlign:'center', borderRadius:5}}
+    <View style={ styles.container }>
+       
+      <LinearGradient style={styles.linearGradient} colors={['#00BF63', '#00605B']}>
+      <View>
+      <Text style={styles.textBalance}>Total balance</Text>
+      <CurrencyInput
+      style={styles.amount}
       value={itemSum}
       onChangeValue={setValue}
       prefix="R$ "
@@ -77,48 +89,37 @@ export const ListScreen = () => {
         console.log(formattedValue); // R$ +2.310,46
       }}
     />
+    </View>
+                    <MaterialCommunityIcons style={styles.cartIcon} name="cart" size={100} color="#fff"  />
+                    </LinearGradient>
+      
+      
+    
+     
       <FlatList
         data={data}
-        style={{ width: '90%' }}
+        style={styles.flatlist  }
         renderItem={({ item }) => (
-          <View
-            style={{
-              //flexDirection: 'row',
-              flexDirection:'row',
-              width: 350,
-              height: 70,
-              margin: 5,
-              padding: 10,
-              //borderWidth:1,
-              borderRadius: 10,
-              backgroundColor: '#FFF',
-              boxShadow: '0 10px 10px rgba(0, 0, 0, 0.1)',
-            }}
-          >
-            <View style={{ flexDirection:'column', width:'90%'}}>
+          <View style={styles.item}>
+            <View style={styles.textPriceFlatlist}>
             <TextInput
               value={item.text}
-              style={{ fontSize:16, fontWeight:'700',color:'#000' }}
+              style={styles.textFlatlist}
               editable={edit}
             />
             <TextInput
               value={item.price.toString()}
-              style={{
-                padding: 5,
-                color:'red',
-               // borderColor: '#ccc',
-                //borderWidth: 1,
-              }}
+              style={styles.priceFlatlist}
               editable={edit}
               keyboardType="numeric"
             />
             </View>
             
+            <View style={styles.textPriceFlatlist}>
             <TouchableOpacity
               style={{
-                
-                //padding: 10,
-                borderRadius: 10,
+                marginBottom:20,
+                marginTop:10,
                 //marginLeft: '15%',
                 
               }}
@@ -126,11 +127,15 @@ export const ListScreen = () => {
                 // deleteItem(item.id);
                 // editItem();
                 setEdit(!edit);
-                console.log({ itemSum });
+                console.log({ data });
               }}
             >
-              <MaterialCommunityIcons name="pencil-plus" size={24} color="red" style={{ backgroundColor: 'white' }} />
+              <MaterialCommunityIcons name="pencil-plus" size={24} color="#00BF63" />
             </TouchableOpacity>
+            <TouchableOpacity>
+            <MaterialCommunityIcons name="trash-can-outline" size={24} color="red" />
+            </TouchableOpacity>
+          </View>
           </View>
         )}
       
@@ -145,7 +150,7 @@ export const ListScreen = () => {
         }}
         style={{ margin: 10, with:20 }}
       >
-        <MaterialCommunityIcons name="plus-box" size={50} color="red"  />
+        <MaterialCommunityIcons name="plus-box" size={50} color="#008646"  />
            
       </TouchableOpacity>
       <Modal

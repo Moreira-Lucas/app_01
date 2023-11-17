@@ -10,7 +10,7 @@ const Tab = createBottomTabNavigator();
 
 export const MyTabs = () => {
   return (
-    <Tab.Navigator   >
+    <Tab.Navigator>
       <Tab.Screen 
         
         name="List"
@@ -18,9 +18,9 @@ export const MyTabs = () => {
         component={ListScreen}
         
         options={{
-          tabBarLabel: 'List',
+          
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="clipboard-list" />
+            <MaterialCommunityIcons name="clipboard-list" color={'#008646'} size={30} />
           ),
         }}
         //icon={<FontAwesome name="list" />}
@@ -31,7 +31,7 @@ export const MyTabs = () => {
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="home" />
+            <MaterialCommunityIcons name="home" color={'#008646'} size={30} />
           ),
         }}
         //icon={<FontAwesome name="house" />}
@@ -42,7 +42,7 @@ export const MyTabs = () => {
         options={{
           tabBarLabel: 'Settings',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="cog" />
+            <MaterialCommunityIcons name="cog" color={'#008646'} size={30}/>
           ),
         }}
       />
