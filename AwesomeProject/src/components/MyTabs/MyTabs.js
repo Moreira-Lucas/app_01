@@ -20,7 +20,7 @@ export const MyTabs = () => {
         options={{
           
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="clipboard-list" color={'#008646'} size={30} />
+            <MaterialCommunityIcons name="clipboard-text-outline" color={'#737373'} size={30} />
           ),
         }}
         //icon={<FontAwesome name="list" />}
@@ -31,7 +31,7 @@ export const MyTabs = () => {
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="home" color={'#008646'} size={30} />
+            <MaterialCommunityIcons name="home-outline" color={'#737373'} size={30} />
           ),
         }}
         //icon={<FontAwesome name="house" />}
@@ -42,7 +42,7 @@ export const MyTabs = () => {
         options={{
           tabBarLabel: 'Settings',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="cog" color={'#008646'} size={30}/>
+            <MaterialCommunityIcons name="cog-outline" color={'#737373'} size={30}/>
           ),
         }}
       />

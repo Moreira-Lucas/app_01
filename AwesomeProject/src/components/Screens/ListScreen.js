@@ -15,18 +15,12 @@ import {LinearGradient} from 'expo-linear-gradient';
 
 export const ListScreen = () => {
 
-  const [data, setData] = useState([
-    {"id": "5nfiwp", "price": '4,98', "text": "Pão de forma"}, 
-    {"id": "0gtsy", "price": '3,29', "text": "Leite"},
-    {"id": "0gtsy", "price": '29,98', "text": "Queijo"},
-    {"id": "0gtsy", "price": '14,98', "text": "café"},
-    {"id": "0gtsy", "price": '100,95', "text": "Legumes"},
-    {"id": "0gtsy", "price": '4,98', "text": "teste"},
-  ]);
-  const [value, setValue] = useState('1');
-  const [value2, setValue2] = useState('');
+  const [data, setData] = useState([]);
+  const [value, setValue] = useState('');
+  const [value2, setValue2] = useState();
   const [edit, setEdit] = useState(false)
   const [modalVisible, setModalVisible] = useState();
+  const [editModalVisible, setEditModalVisible] = useState(false);
   //const modalizeRef = useRef(null);
 
   /*const onOpen = () => {
@@ -38,26 +32,30 @@ export const ListScreen = () => {
   };
   const itemSum = data.reduce((total, item) => {
     
-    return eval(total + item.price);
+    return total + item.price;
   }, 0);
   
    // 102
+   function setItemPrice(id, formattedValue) {
+    const item = data.find((item) => item.id === id);
+    item.price = formattedValue;
+    setData(data);
+  }
   
 
-  const editItem = () =>{
-    //const itemEditing = data.find((item) => item.id == id);
-    //console.log(itemEditing);
-    //setModalVisible(true);
+  const editItem = (id) =>{
+    const itemEditing = data.find((item) => item.id == id);
+    console.log(itemEditing);
+    setEdit(!edit);
+    setEditModalVisible(true);
+
   };
-  let newItem;
+  
   const addItem = (text, price) => {
-    
-    
-    //console.log(text,price);
-      newItem = {
+   const   newItem = {
       id: Math.random().toString(36).substring(7),
       text:text,
-      price:parseFloat(price),
+      price:Number(price),
       
     };
 
@@ -86,16 +84,12 @@ export const ListScreen = () => {
       minValue={0}
       //showPositiveSign
       onChangeText={(formattedValue) => {
-        console.log(formattedValue); // R$ +2.310,46
+        //console.log(formattedValue.toString())  // R$ +2.310,46
       }}
     />
     </View>
-                    <MaterialCommunityIcons style={styles.cartIcon} name="cart" size={100} color="#fff"  />
-                    </LinearGradient>
-      
-      
-    
-     
+      <MaterialCommunityIcons style={styles.cartIcon} name="cart" size={100} color="#fff"  />
+    </LinearGradient>
       <FlatList
         data={data}
         style={styles.flatlist  }
@@ -107,32 +101,32 @@ export const ListScreen = () => {
               style={styles.textFlatlist}
               editable={edit}
             />
-            <TextInput
-              value={item.price.toString()}
-              style={styles.priceFlatlist}
-              editable={edit}
-              keyboardType="numeric"
-            />
+         <CurrencyInput
+            style={styles.priceFlatlist}
+            value={item.price}
+            onChangeValue={(formattedValue) => setItemPrice(item.id, formattedValue)}
+            prefix="R$ "
+            delimiter="."
+            separator=","
+            precision={2}
+            minValue={0}
+            //showNegativeSign
+            onChangeText={(formattedValue) => {
+              console.log(formattedValue.toString()); // R$ +2.310,46
+            }}
+          />
             </View>
-            
             <View style={styles.textPriceFlatlist}>
             <TouchableOpacity
-              style={{
-                marginBottom:20,
-                marginTop:10,
-                //marginLeft: '15%',
-                
-              }}
+              style={{marginBottom:20,}}
               onPress={() => {
-                // deleteItem(item.id);
-                // editItem();
                 setEdit(!edit);
-                console.log({ data });
-              }}
-            >
+                editItem(item.id) ;
+              }}>
               <MaterialCommunityIcons name="pencil-plus" size={24} color="#00BF63" />
             </TouchableOpacity>
-            <TouchableOpacity>
+
+            <TouchableOpacity onPress={()=>{deleteItem(item.id);}}>
             <MaterialCommunityIcons name="trash-can-outline" size={24} color="red" />
             </TouchableOpacity>
           </View>
@@ -140,8 +134,6 @@ export const ListScreen = () => {
         )}
       
       />
-     
-      
       <TouchableOpacity
         onPress={() => {
           // Chame o método addItem() aqui
@@ -176,26 +168,59 @@ export const ListScreen = () => {
           }}
         />
       </View>
-           
-
             <TouchableOpacity onPress={()=>{
               addItem(value, value2);
               setModalVisible(false);
             }}>
-            <MaterialCommunityIcons name="plus-box" size={50} color="red"/>
+            <MaterialCommunityIcons name="plus-box" size={50} color="#008646"/>
 
             </TouchableOpacity>  
             <TouchableOpacity
              style={{alignItems:'flex-start'}}
              onPress={()=>{
               setModalVisible(!modalVisible)
-            }}><Text>X</Text></TouchableOpacity>
+            }}><Text style={{alignSelf:'flex-end'}}>X</Text></TouchableOpacity>
+          </View>
+        </Modal>
 
+        <Modal
+       isVisible={editmodalVisible}>
+          <View style={{backgroundColor:"#fff",  borderRadius:10, justifyContent:'center',alignItems:'center',}}>
+          <View style={{  justifyContent: 'center', alignItems: 'center', width:'100%', borderColor:'red',  }}>
+          <TextInput
+              value={item.text}
+              style={styles.textFlatlist}
+              editable={edit}
+            />
+         <CurrencyInput
+            style={styles.priceFlatlist}
+            value={item.price}
+            onChangeValue={(formattedValue) => setItemPrice(item.id, formattedValue)}
+            prefix="R$ "
+            delimiter="."
+            separator=","
+            precision={2}
+            minValue={0}
+            //showNegativeSign
+            onChangeText={(formattedValue) => {
+              console.log(formattedValue.toString()); // R$ +2.310,46
+            }}
+          />
+      </View>
+            <TouchableOpacity onPress={()=>{
+              addItem(value, value2);
+              setModalVisible(false);
+            }}>
+            <MaterialCommunityIcons name="plus-box" size={50} color="#008646"/>
 
+            </TouchableOpacity>  
+            <TouchableOpacity
+             style={{alignItems:'flex-start'}}
+             onPress={()=>{
+              setModalVisible(!modalVisible)
+            }}><Text style={{alignSelf:'flex-end'}}>X</Text></TouchableOpacity>
           </View>
         </Modal>
     </View>
   );
-  
-  
 };

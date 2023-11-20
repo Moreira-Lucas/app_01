@@ -8,7 +8,7 @@ export const styles = StyleSheet.create( {
       flex: 1, 
       alignItems: 'center',
       padding:2,
-      
+     
     },
     text: {
      
@@ -44,10 +44,11 @@ export const styles = StyleSheet.create( {
       fontSize:40,
       fontWeight:'700',
       marginTop:10,
+     // borderWidth:10,
     },
     
     cartIcon:{
-      marginLeft:'30%',
+      marginLeft:'20%',
       //borderWidth:2,
       //justifyContent:'space-around'
     },
@@ -57,28 +58,36 @@ export const styles = StyleSheet.create( {
       height: 100,
       margin: 5,
       padding: 10,
-      //borderWidth:1,
       borderRadius: 10,
       backgroundColor: '#FFF',
       //boxShadow: '0 20px 20px rgba(0, 0, 0, 0.1)',
       borderLeftColor:'#00BF63'
     },
     flatList: {
-      width: '90%'
+      width: '90%',
+      
     },
     textPriceFlatlist:{
       flexDirection:'column',
        width:'90%',
+       
        
     },
     textFlatlist:{
       color:'#444444',
       fontSize:25,
       fontWeight:'700',
+      marginBottom:10,
+      
     },
     priceFlatlist:{
-      color:'#737373',
-      fontSize:20
+      color:'#fff',
+      fontSize:15,
+      //borderWidth:1,
+      borderRadius:10,
+      backgroundColor:'#FF5757',
+      width:'35%',
+      paddingHorizontal:10,
     }
 
   
