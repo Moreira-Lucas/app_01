@@ -7,6 +7,9 @@ import CurrencyInput from 'react-native-currency-input';
 import Modal from "react-native-modal";
 import {styles} from '../styles/ListStyles';
 import {LinearGradient} from 'expo-linear-gradient';
+import * as Progress from 'react-native-progress';
+
+
 
 //import { Modalize } from 'react-native-modalize';
 
@@ -21,6 +24,8 @@ export const ListScreen = () => {
   const [edit, setEdit] = useState(false)
   const [modalVisible, setModalVisible] = useState();
   const [editModalVisible, setEditModalVisible] = useState(false);
+  const [progress, setProgress] = useState(0.5)
+  
   //const modalizeRef = useRef(null);
 
   /*const onOpen = () => {
@@ -70,7 +75,7 @@ export const ListScreen = () => {
   return (
     <View style={ styles.container }>
        
-      <LinearGradient style={styles.linearGradient} colors={['#00BF63', '#00605B']}>
+      <LinearGradient style={styles.linearGradient} colors={['#1e2829','#1e2829']}>
       <View>
       <Text style={styles.textBalance}>Total balance</Text>
       <CurrencyInput
@@ -87,14 +92,15 @@ export const ListScreen = () => {
         //console.log(formattedValue.toString())  // R$ +2.310,46
       }}
     />
+    <Progress.Bar progress={progress} width={200} />
     </View>
-      <MaterialCommunityIcons style={styles.cartIcon} name="cart" size={100} color="#fff"  />
+      
     </LinearGradient>
       <FlatList
         data={data}
         style={styles.flatlist  }
         renderItem={({ item }) => (
-          <View style={styles.item}>
+          <View style={styles.card}>
             <View style={styles.textPriceFlatlist}>
             <TextInput
               value={item.text}
@@ -183,44 +189,6 @@ export const ListScreen = () => {
           </View>
         </Modal>
 
-        <Modal
-       isVisible={editmodalVisible}>
-          <View style={{backgroundColor:"#fff",  borderRadius:10, justifyContent:'center',alignItems:'center',}}>
-          <View style={{  justifyContent: 'center', alignItems: 'center', width:'100%', borderColor:'red',  }}>
-          <TextInput
-              value={item.text}
-              style={styles.textFlatlist}
-              editable={edit}
-            />
-         <CurrencyInput
-            style={styles.priceFlatlist}
-            value={item.price}
-            onChangeValue={(formattedValue) => setItemPrice(item.id, formattedValue)}
-            prefix="R$ "
-            delimiter="."
-            separator=","
-            precision={2}
-            minValue={0}
-            //showNegativeSign
-            onChangeText={(formattedValue) => {
-              console.log(formattedValue.toString()); // R$ +2.310,46
-            }}
-          />
-      </View>
-            <TouchableOpacity onPress={()=>{
-              addItem(value, value2);
-              setModalVisible(false);
-            }}>
-            <MaterialCommunityIcons name="plus-box" size={50} color="#008646"/>
-
-            </TouchableOpacity>  
-            <TouchableOpacity
-             style={{alignItems:'flex-start'}}
-             onPress={()=>{
-              setModalVisible(!modalVisible)
-            }}><Text style={{alignSelf:'flex-end'}}>X</Text></TouchableOpacity>
-          </View>
-        </Modal>
     </View>
   );
 };

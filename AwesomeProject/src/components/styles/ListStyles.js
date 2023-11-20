@@ -8,6 +8,7 @@ export const styles = StyleSheet.create( {
       flex: 1, 
       alignItems: 'center',
       padding:2,
+      
      
     },
     text: {
@@ -25,22 +26,22 @@ export const styles = StyleSheet.create( {
      
     },
     linearGradient: {
-      //flex:1,
-      margin:5,
+      margin:0,
       padding:15,
       height:'20%',
        width:'100%', 
        textAlign:'center', 
-       borderRadius:5,
+       borderRadius:20,
        justifyContent:'center',
        flexDirection:'row',
+
       },
     textBalance:{
       fontSize:20,
       color:'#fff'
     },
     amount:{
-      color:'#fff',
+      color:'#00BF63',
       fontSize:40,
       fontWeight:'700',
       marginTop:10,
@@ -52,16 +53,16 @@ export const styles = StyleSheet.create( {
       //borderWidth:2,
       //justifyContent:'space-around'
     },
-    item: {
+    card: {
       flexDirection:'row',
-      width: 350,
+      width: '74%',
       height: 100,
       margin: 5,
       padding: 10,
       borderRadius: 10,
-      backgroundColor: '#FFF',
-      //boxShadow: '0 20px 20px rgba(0, 0, 0, 0.1)',
-      borderLeftColor:'#00BF63'
+      backgroundColor: '#1E1E22',
+      boxShadow: '0 20px 20px rgba(0, 0, 0, 0.1)',
+      //borderLeftColor:'#00BF63'
     },
     flatList: {
       width: '90%',
@@ -74,20 +75,21 @@ export const styles = StyleSheet.create( {
        
     },
     textFlatlist:{
-      color:'#444444',
+      color:'#E9E9E9',
       fontSize:25,
       fontWeight:'700',
       marginBottom:10,
       
     },
     priceFlatlist:{
-      color:'#fff',
+      color:'#00BF63',
       fontSize:15,
       //borderWidth:1,
       borderRadius:10,
-      backgroundColor:'#FF5757',
+      backgroundColor:'#1e2829',
       width:'35%',
       paddingHorizontal:10,
+      
     }
 
   

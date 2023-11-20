@@ -10,10 +10,10 @@ const Tab = createBottomTabNavigator();
 
 export const MyTabs = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator >
       <Tab.Screen 
         
-        name="List"
+        name="Listi"
         
         component={ListScreen}
         
