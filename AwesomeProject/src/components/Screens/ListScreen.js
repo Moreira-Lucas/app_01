@@ -64,43 +64,23 @@ export const ListScreen = () => {
       "price": 7.99,
       "text": "queijo"
     },
-    {
-      "id": "j67890",
-      "price": 4.99,
-      "text": "açúcar"
-    },
-    {
-      "id": "i56789",
-      "price": 3.99,
-      "text": "sal"
-    },
-    {
-      "id": "k89012",
-      "price": 10.99,
-      "text": "café"
-    },
-    {
-      "id": "l78901",
-      "price": 8.99,
-      "text": "suco"
-    }
+
   ]
   );
   const [value, setValue] = useState('');
   const [value2, setValue2] = useState();
-  //const [edit, setEdit] = useState(false)
+  const [editing, setEditing] = useState({
+    textTemp:'',
+    priceTemp:'',
+  })
   const [modalVisible, setModalVisible] = useState();
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [progress, setProgress] = useState(0.5)
-  //let edit = false;
-
   
-
-
-
   const deleteItem = (id) => {
     setData(data.filter((item) => item.id !== id));
   };
+
   const itemSum = data.reduce((total, item) => {
     
     return total + item.price;
@@ -116,14 +96,15 @@ export const ListScreen = () => {
     item.price = formattedValue;
     setData(data);
   }
-  
+  let itemX;
 
-  const editItem = (id) =>{
+  const editItem = (id,editingText,editingPrice) =>{
     const itemEditing = data.find((item) => item.id == id);
-    console.log(itemEditing);
-    //setEdit(!edit);
-    //etEditModalVisible(true);
-    edit = true;
+   itemEditing.text = editingText;
+   itemEditing.price = editingPrice;
+   
+    console.log(itemEditing); 
+    
   };
   
   const addItem = (text, price) => {
@@ -166,7 +147,7 @@ export const ListScreen = () => {
     </View>
       
     <TouchableOpacity onPress={()=>{
-      restante();
+     // editItem();
     }}>
             <MaterialCommunityIcons name="bell-ring-outline" size={24} color="#fff" />
             </TouchableOpacity>
@@ -202,7 +183,7 @@ export const ListScreen = () => {
               style={{marginBottom:20,}}
               onPress={() => {
                 setEditModalVisible(!editModalVisible)
-                editItem(item.id) ;
+                //editItem(item.id,) ;
               }}>
               <MaterialCommunityIcons name="pencil-plus" size={24} color="gray" />
             </TouchableOpacity>
@@ -211,10 +192,26 @@ export const ListScreen = () => {
            
             isVisible={editModalVisible} >
                 <View style = {styles.editModal}>
-                  <Text>teste edit modal</Text>
+                  
+                <TextInput
+          style={{ padding:5,margin:10, borderWidth:1,borderColor:'#000',width:'60%',borderRadius:5 }}
+          placeholder="Item"
+          defaultValue={item.text}
+          onChangeValue={(event) =>  itemX = event.nativeEvent.text }
+          value={itemX}
+        />
+        <TextInput
+          style={{padding:5, marginBottom: 10, borderRadius:5, borderColor:"#000",borderWidth:1,width:'60%' }}
+          placeholder="Preço"
+          value={item.price}
+          keyboardType="numeric"
+          //onChangeValue={(formattedValue) => setItemPrice(item.id, formattedValue)}
+        />
+                  
                   <TouchableOpacity 
                   onPress={()=>{
                     setEditModalVisible(!editModalVisible)
+                    editItem(item.id,value,value);
                   }}
                   
                   ><Text >Salvar</Text></TouchableOpacity>
