@@ -6,20 +6,13 @@ const MyTheme = {
   dark: true,
   colors: {
     primary: '#00BF63',
-    background: '#1A191E',
-    card: 'rgb(28, 28, 30)',
-    text: 'rgb(199, 199, 204)',
+    background: '#FEFEFE',
+    card: '#FEFEFE',
+    text: '#444',
     border: 'rgb(199, 199, 204)',
     notification: 'rgb(255, 69, 58)',
   },
 };
-
-
-
-
-
-
-
 
 const App = () => {
   return (

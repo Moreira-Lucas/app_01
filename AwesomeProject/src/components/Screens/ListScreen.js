@@ -18,19 +18,85 @@ import * as Progress from 'react-native-progress';
 
 export const ListScreen = () => {
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([
+    {
+      "id": "q604ba",
+      "price": 5.98,
+      "text": "arroz"
+    },
+    {
+      "id": "c12345",
+      "price": 2.99,
+      "text": "feijão"
+    },
+    {
+      "id": "e78901",
+      "price": 12.99,
+      "text": "carne"
+    },
+    {
+      "id": "b45678",
+      "price": 10.99,
+      "text": "frutas"
+    },
+    {
+      "id": "a90123",
+      "price": 8.99,
+      "text": "vegetais"
+    },
+    {
+      "id": "f67890",
+      "price": 3.99,
+      "text": "leite"
+    },
+    {
+      "id": "d56789",
+      "price": 2.99,
+      "text": "ovos"
+    },
+    {
+      "id": "h89012",
+      "price": 9.99,
+      "text": "pão"
+    },
+    {
+      "id": "g78901",
+      "price": 7.99,
+      "text": "queijo"
+    },
+    {
+      "id": "j67890",
+      "price": 4.99,
+      "text": "açúcar"
+    },
+    {
+      "id": "i56789",
+      "price": 3.99,
+      "text": "sal"
+    },
+    {
+      "id": "k89012",
+      "price": 10.99,
+      "text": "café"
+    },
+    {
+      "id": "l78901",
+      "price": 8.99,
+      "text": "suco"
+    }
+  ]
+  );
   const [value, setValue] = useState('');
   const [value2, setValue2] = useState();
-  const [edit, setEdit] = useState(false)
+  //const [edit, setEdit] = useState(false)
   const [modalVisible, setModalVisible] = useState();
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [progress, setProgress] = useState(0.5)
-  
-  //const modalizeRef = useRef(null);
+  //let edit = false;
 
-  /*const onOpen = () => {
-    modalizeRef.current?.open();
-  };*/
+  
+
+
 
   const deleteItem = (id) => {
     setData(data.filter((item) => item.id !== id));
@@ -40,6 +106,10 @@ export const ListScreen = () => {
     return total + item.price;
   }, 0);
   
+
+
+
+
    // 102
    function setItemPrice(id, formattedValue) {
     const item = data.find((item) => item.id === id);
@@ -51,9 +121,9 @@ export const ListScreen = () => {
   const editItem = (id) =>{
     const itemEditing = data.find((item) => item.id == id);
     console.log(itemEditing);
-    setEdit(!edit);
-    setEditModalVisible(true);
-
+    //setEdit(!edit);
+    //etEditModalVisible(true);
+    edit = true;
   };
   
   const addItem = (text, price) => {
@@ -64,7 +134,7 @@ export const ListScreen = () => {
       
     };
 
-
+    //setRestante(limit-itemSum);
     setData([...data, newItem]);
     // Atualiza a lista
    // <Icon name="delete" size={24} color="#ff0000" />listRef.current.forceUpdate();
@@ -73,9 +143,8 @@ export const ListScreen = () => {
 
 
   return (
-    <View style={ styles.container }>
-       
-      <LinearGradient style={styles.linearGradient} colors={['#1e2829','#1e2829']}>
+    <View style={ styles.container }>   
+      <LinearGradient style={styles.linearGradient} colors={['#23bc9d','#23bc9d']}>
       <View>
       <Text style={styles.textBalance}>Total balance</Text>
       <CurrencyInput
@@ -92,9 +161,15 @@ export const ListScreen = () => {
         //console.log(formattedValue.toString())  // R$ +2.310,46
       }}
     />
-    <Progress.Bar progress={progress} width={200} />
+    <Progress.Bar style={styles.progressBar} color={'#fff'} progress={progress} width={300} />
+    <Text style={styles.balance}>restante R$ 0,00</Text>
     </View>
       
+    <TouchableOpacity onPress={()=>{
+      restante();
+    }}>
+            <MaterialCommunityIcons name="bell-ring-outline" size={24} color="#fff" />
+            </TouchableOpacity>
     </LinearGradient>
       <FlatList
         data={data}
@@ -105,7 +180,7 @@ export const ListScreen = () => {
             <TextInput
               value={item.text}
               style={styles.textFlatlist}
-              editable={edit}
+              editable={false}
             />
          <CurrencyInput
             style={styles.priceFlatlist}
@@ -126,14 +201,27 @@ export const ListScreen = () => {
             <TouchableOpacity
               style={{marginBottom:20,}}
               onPress={() => {
-                setEdit(!edit);
+                setEditModalVisible(!editModalVisible)
                 editItem(item.id) ;
               }}>
-              <MaterialCommunityIcons name="pencil-plus" size={24} color="#00BF63" />
+              <MaterialCommunityIcons name="pencil-plus" size={24} color="gray" />
             </TouchableOpacity>
-
+            <Modal  
+            backdropOpacity={0.1}
+           
+            isVisible={editModalVisible} >
+                <View style = {styles.editModal}>
+                  <Text>teste edit modal</Text>
+                  <TouchableOpacity 
+                  onPress={()=>{
+                    setEditModalVisible(!editModalVisible)
+                  }}
+                  
+                  ><Text >Salvar</Text></TouchableOpacity>
+                </View>
+            </Modal>
             <TouchableOpacity onPress={()=>{deleteItem(item.id);}}>
-            <MaterialCommunityIcons name="trash-can-outline" size={24} color="red" />
+            <MaterialCommunityIcons name="trash-can-outline" size={24} color="gray" />
             </TouchableOpacity>
           </View>
           </View>
@@ -148,17 +236,24 @@ export const ListScreen = () => {
         }}
         style={{ margin: 10, with:20 }}
       >
-        <MaterialCommunityIcons name="plus-box" size={50} color="#008646"  />
+        <MaterialCommunityIcons name="plus-box" size={50} color="#23bc9d"  />
            
       </TouchableOpacity>
       <Modal
        isVisible={modalVisible}
 
-        //style={{flex:1, padding:15}}
-        >
+        style={{flex:1, padding:15}}>
+          
+          
           <View style={{backgroundColor:"#fff",  borderRadius:10, justifyContent:'center',alignItems:'center',}}>
-          <View style={{  justifyContent: 'center', alignItems: 'center', width:'100%', borderColor:'red',  }}>
-        <TextInput
+          <TouchableOpacity
+             style={styles.closeButton}
+             onPress={()=>{
+              setModalVisible(!modalVisible)
+            }}><Text>X</Text>
+            </TouchableOpacity>
+            <View style={{  justifyContent: 'center', alignItems: 'center', width:'100%', borderColor:'red',  }}>
+              <TextInput
           style={{ padding:5,margin:10, borderWidth:1,borderColor:'#000',width:'60%',borderRadius:5 }}
           placeholder="Item"
           onChange={(event) => {
@@ -174,21 +269,17 @@ export const ListScreen = () => {
           }}
         />
       </View>
-            <TouchableOpacity onPress={()=>{
-              addItem(value, value2);
-              setModalVisible(false);
-            }}>
-            <MaterialCommunityIcons name="plus-box" size={50} color="#008646"/>
+            <TouchableOpacity 
+              style={styles.addButton}
+              onPress={()=>{
+                addItem(value, value2);
+                setModalVisible(false);
+              }}>
+           <Text>Adicionar</Text>
 
-            </TouchableOpacity>  
-            <TouchableOpacity
-             style={{alignItems:'flex-start'}}
-             onPress={()=>{
-              setModalVisible(!modalVisible)
-            }}><Text style={{alignSelf:'flex-end'}}>X</Text></TouchableOpacity>
+            </TouchableOpacity>           
           </View>
         </Modal>
-
     </View>
   );
 };
