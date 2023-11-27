@@ -2,13 +2,20 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 
+const theme = {
+  primaryColor:'',
+  BaseColor:'#f2f3f5',
+  textColorOne:'#898989',
+  textColorTwo:'#000',
+  
+};  
 
 export const styles = StyleSheet.create( {
     container: {
       flex: 1, 
       alignItems: 'center',
       padding:2,
-      
+       
       
      
     },
@@ -25,9 +32,37 @@ export const styles = StyleSheet.create( {
      
     },
     editModal:{
+    textInputs:{
+      padding: 5,
+      marginBottom: 10,
+      borderRadius: 5,
+      borderColor: "#000",
+      borderWidth: 1,
+      width: "60%",
+     },
+     saveButton:{
+      backgroundColor:'#000',
+      color:'#fff',
+      padding:10,
+      borderRadius:10,
+     },
+     closeButton:{
+      alignSelf:'flex-end',
+      marginBottom:10,
+      icon:{
+        color:'#ccc',
+        fontWeight:'700',
+        fontSize:16,
+      },
+      
+     },
+      borderRadius:10,
       backgroundColor:'#fff',
-      padding:'20%',
-      alignSelf:'center'
+      padding:'5%',
+      alignSelf:'center',
+      width:'80%',
+      justifyContent:'center',
+      alignItems:'center',
     },
     closeButton: {
      backgroundColor:'#ccc',
@@ -39,7 +74,8 @@ export const styles = StyleSheet.create( {
      
     },
     addButton:{
-      backgroundColor:'#23bc9d',
+      backgroundColor:'#000',
+      color:'#fff',
       padding:10,
       borderRadius:10,
       marginBottom:20,
@@ -51,7 +87,7 @@ export const styles = StyleSheet.create( {
       marginBottom:50,
       padding:15,
       height:'30%',
-       width:'100%', 
+       width:'90%', 
        textAlign:'center', 
        borderRadius:20,
        justifyContent:'center',
@@ -64,7 +100,7 @@ export const styles = StyleSheet.create( {
       balance:{
         marginTop:5,
         color:'#fff',
-        backgroundColor:'#FF5A5A',
+        backgroundColor:'#000',
         paddingHorizontal:5,
         padding:5,
         borderRadius:10,
@@ -73,15 +109,13 @@ export const styles = StyleSheet.create( {
       },
     textBalance:{
       fontSize:15,
-      color:'#fff',
-      //backgroundColor:"#fff",
+      color:'#000',
       borderRadius:10,
-      //paddingHorizontal:10,
       width:'50%',
 
     },
     amount:{
-      color:'#FBFFFD',
+      color:'#000',
       fontSize:50,
       fontWeight:'700',
       marginTop:5,
@@ -92,40 +126,48 @@ export const styles = StyleSheet.create( {
       marginLeft:'20%',
       
     },
+    iconCategory:{
+      //borderWidth:1,
+      alignItems:'center',
+      justifyContent:'center',
+      marginRight:10,
+    },
     card: {
       flexDirection:'row',
-      width: '70%',
+      width: '72%',
       height: 100,
       margin: 10,
       padding: 10,
       borderRadius: 10,
-      backgroundColor: '#CFEDE9',
+      backgroundColor: '#fff',
       boxShadow: '0 20px 20px rgba(0, 0, 0, 0.1)',
       
     },
     flatList: {
       width: '90%',
+      backgroundColor:'#000',
+      
       
     },
     textPriceFlatlist:{
       flexDirection:'column',
-       width:'90%',
+       width:'80%',
        
        
     },
     textFlatlist:{
-      color:'#333',
+      color:'#000',
       fontSize:25,
       fontWeight:'700',
       marginBottom:10,
       
     },
     priceFlatlist:{
-      color:'#333',
+      color:'#fff',
       fontSize:15,
       //borderWidth:1,
       borderRadius:10,
-      //backgroundColor:'#1e2829',
+      backgroundColor:'#000',
       width:'35%',
       paddingHorizontal:10,
       
@@ -133,4 +175,3 @@ export const styles = StyleSheet.create( {
 
   
   });
-  

@@ -3,10 +3,10 @@ import { TextInput, Text, View, FlatList, Button } from 'react-native';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { MyTabs } from './src/components/MyTabs/MyTabs';
 const MyTheme = {
-  dark: true,
+  dark: false,
   colors: {
     primary: '#00BF63',
-    background: '#FEFEFE',
+    background: '#f2f3f5',
     card: '#FEFEFE',
     text: '#444',
     border: 'rgb(199, 199, 204)',

@@ -13,7 +13,7 @@ export const MyTabs = () => {
     <Tab.Navigator >
       <Tab.Screen 
         
-        name="Listi"
+        name="List"
         
         component={ListScreen}
         
@@ -35,6 +35,20 @@ export const MyTabs = () => {
           ),
         }}
         //icon={<FontAwesome name="house" />}
+      />
+       <Tab.Screen 
+        
+        name="Offers"
+        
+        component={ListScreen}
+        
+        options={{
+          
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="sale" color={'#737373'} size={30} />
+          ),
+        }}
+        //icon={<FontAwesome name="list" />}
       />
       <Tab.Screen
         name="Settings"
